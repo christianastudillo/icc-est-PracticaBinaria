@@ -1,30 +1,41 @@
+import java.util.ArrayList;
 public class Busqueda {
-    public int busquedaBinaria(int[] arr, int value){
-        int inicio = 0;
-        int fin = arr.length -1;
-        int cont = 0 ;
-        while (inicio <= fin) {
-            int medio = inicio + (fin - inicio) / 2;
-            cont++;
-            System.out.println("Contador Binario: " + cont);
-            if (arr[medio] == value) {
-                
-                //Elemento encontrado
-                return medio;
+    public int busquedaBinaria(ArrayList<Persona> lista, int valorBuscado) {
+        int bajo = 0;
+        int alto = lista.size() - 1;
+
+        while (bajo <= alto) {
+            int centro = (bajo + alto) / 2;
+            Persona personaCentro = lista.get(centro);
+            for (Persona p : lista) {
+                System.out.print(p.getEdad() + " ");
             }
-            if (arr[medio] < value) {
-                inicio = medio + 1;//Buscar en la midad de la derecha 
-            }else{
-                fin = medio - 1;//Buscar en la midad de la izquierda 
+            System.out.println("\nbajo=" + bajo + " alto=" + alto + " centro=" + centro + " valorCentro=" + personaCentro.getEdad());
+
+            if (personaCentro.getEdad() == valorBuscado) {
+                return centro; 
+            } else if (personaCentro.getEdad() < valorBuscado) {
+                System.out.println("--> Derecha");
+                bajo = centro + 1;
+            } else {
+                System.out.println("-->Izquierda");
+                alto = centro - 1;
             }
         }
-
-        return -1;
+        return -1; 
     }
+    public static void ordenarPorInsercion(ArrayList<Persona> lista) {
+        int tamanio = lista.size();
 
-    public void printArreglo(int[] arreglo){
-        for (int elem : arreglo) {
-            System.out.print(elem + " ");
+        for (int i = 1; i < tamanio; i++) {
+            Persona aux = lista.get(i);
+            int j = i - 1;
+
+            while (j >= 0 && lista.get(j).getEdad() > aux.getEdad()) {
+                lista.set(j + 1, lista.get(j));
+                j--;
+            }
+            lista.set(j + 1, aux);
         }
     }
 }

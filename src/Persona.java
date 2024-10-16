@@ -1,25 +1,22 @@
 public class Persona{
     String nombre;
-    int edaad;
+    int edad;
+
+    public Persona(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
     public String getNombre() {
         return nombre;
     }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+
+    public int getEdad() {
+        return edad;
     }
-    public int getEdaad() {
-        return edaad;
-    }
-    public void setEdaad(int edaad) {
-        this.edaad = edaad;
-    }
-    public Persona(String nombre, int edaad) {
-        this.nombre = nombre;
-        this.edaad = edaad;
-    }
+
     @Override
     public String toString() {
-        return "Persona [nombre=" + nombre + ", edaad=" + edaad + "]";
+        return nombre + " (Edad: " + edad + ")";
     }
-    
 }

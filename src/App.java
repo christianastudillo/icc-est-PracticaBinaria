@@ -1,41 +1,37 @@
+import java.util.ArrayList;
 import java.util.Scanner;
-
 
 public class App {
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
-        MetodosBusqueda mB = new MetodosBusqueda();
+        ArrayList<Persona> listaPersonas = new ArrayList<>();
 
-        int[] arreglo = new int[100000];
-        for (int i = 0; i < 100000; i++) {
-            arreglo[i] = i + 1;
+
+        System.out.print("Ingrese la cantidad de personas del listado: ");
+        int cantidadPersonas = sc.nextInt();
+
+        for (int i = 0; i < cantidadPersonas; i++) {
+            System.out.println("Ingrese Persona: ");
+            System.out.print("Nombre: ");
+            String nombre = sc.next();
+            System.out.print("Edad: ");
+            int edad = sc.nextInt();
+            listaPersonas.add(new Persona(nombre, edad));
         }
 
-   
-        mB.printArreglo(arreglo);
+        Busqueda.ordenarPorInsercion(listaPersonas);
 
-        long startTime = System.currentTimeMillis();
-        int posicionSecuencial = mB.busquedaSecuencial(arreglo, 30);
-        long endTime = System.currentTimeMillis();
-        
-        if (posicionSecuencial != -1) {
-            System.out.println("Secuencial: El valor se encuentra en la posición: " + posicionSecuencial);
+        System.out.print("Ingrese la edad a buscar: ");
+        int edadBuscada = sc.nextInt();
+
+        Busqueda busqueda = new Busqueda();
+        int posicion = busqueda.busquedaBinaria(listaPersonas, edadBuscada);
+
+        if (posicion != -1) {
+            System.out.println("La persona con la edad " + edadBuscada + " es " + listaPersonas.get(posicion).getNombre());
         } else {
-            System.out.println("Secuencial: Valor no encontrado...");
+            System.out.println("No se encontró una persona con la edad " + edadBuscada);
         }
-        System.out.println("Tiempo de búsqueda secuencial: " + (endTime - startTime) + " milisegundos");
-
-        startTime = System.currentTimeMillis();
-        int posicionBinaria = mB.busquedaBinaria(arreglo, 30);
-        endTime = System.currentTimeMillis();
-
-        if (posicionBinaria != -1) {
-            System.out.println("Binaria: El valor se encuentra en la posición: " + posicionBinaria);
-        } else {
-            System.out.println("Binaria: Valor no encontrado...");
-        }
-        System.out.println("Tiempo de búsqueda binaria: " + (endTime - startTime) + " milisegundos");
-
         sc.close();
     }
 }
